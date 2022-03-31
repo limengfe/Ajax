@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axios</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+</head>
+<body>
+    <button>GET</button>
+    <button>POST</button>
+    <button>AJAX</button>
+    <script>
+        const btnS = document.querySelectorAll('button')
+        //配制baseURL    请求路径可以省写
+        axios.defaults.baseURL = 'http://127.0.0.1:8000';
+        
+        btnS[0].onclick = function(){
+          //GET请求
+          axios.get('/axios-server',{  //回调函数使用promise .then（）
+             //url参数
+             params:{
+                 id:100,
+                 vix:10
+             },
+             //设置请求头信息
+             headers:{
+                 name:'hello',
+                 age:18 
+             }
+          }).then(value=>{
+              console.log(value);
+          })
+        }
+        btnS[1].onclick = function(){  //{url,data,其他}
+            axios.post('/axios-server',{
+                    username:"admin",
+                    password:"admin"
+                },{
+                //URL参数
+                params:{
+                    id:999,
+                    vip:10
+                },
+                //设置头参数
+                headers:{
+                    width:400,
+                    height:200
+                },
+                //请求体
+               
+            })
+        }
+        btnS[2].onclick =function(){
+            axios({
+                //请求方法
+                method:"POST",
+                //url
+                url:'axios-server',
+                params:{
+                    vip:9,
+                    level:66
+                },
+                //头信息
+                headers:{
+                    a:100,
+                    b:200
+                },
+                //请求体参数
+                data:{
+                    username:"admin",
+                    password:"admin"
+                }
+            })
+        }
+   </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #result{
+      width: 200px;
+      height: 100px;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <button>点击发送请求</button>
+  <div id="result"></div>
+  <script>
+    const btn = document.getElementsByTagName('button')[0];
+    const result = document.getElementById('result');
+    //绑定事件
+    btn.onclick = function (){
+      //1.创建对象
+      const xhr = new XMLHttpRequest();
+      //2.初始化
+      xhr.open('get','http://127.0.0.1:8000/server?a=100&b=200&c=300');//在此处可以传参
+      //3.发生请求
+      xhr.send()
+      //4.绑定事件
+      xhr.onreadystatechange = function (){
+        //0. 请求未初始化
+        //1. 服务器连接已建立
+        //2. 请求已接收
+        //3. 请求处理中
+        //4. 请求已完成，且响应已就绪
+        if(xhr.readyState === 4){
+          if(xhr.status>=200 && xhr.status<300){
+             // console.log(xhr.status);//状态码
+             // console.log(xhr.statusText);//状态码字符串
+             // console.lof(xhr.getAllResponseHeaders());//所有响应头
+             // console.log(xhr.response)//响应体
+            result.innerHTML = xhr.response ;
+          }else{
+            console.log(xhr.status);
+          }
+        }
+      }
+    }
+  </script>
+</body>
+</html>
